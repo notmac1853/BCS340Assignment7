@@ -4,9 +4,46 @@
 #include <iostream>
 using namespace std;
 
+void printArray(int A[], int size)
+{
+    int i;
+    for (i = 0; i < size; i++)
+        cout << A[i] << ",";
+    cout << endl;
+}
+
+
+
+void insertionSort(int arr[], int size)
+{
+    int curr, prev, temp;
+    for (curr = 1; curr < size; curr++) {
+        temp = arr[curr];
+        prev = curr - 1;
+
+        while (prev >= 0 && arr[prev] > temp) {
+            arr[prev + 1] = arr[prev];
+            prev = prev - 1;
+        }
+        arr[prev + 1] = temp;
+    }
+
+}
+
 int main()
 {
-    std::cout << "Hello World!\n";
+    int arr[] = { 12, 11, 13, 5, 6, 7 };
+    int arr_size = sizeof(arr) / sizeof(arr[0]);
+
+    cout << "Given array is \n";
+    printArray(arr, arr_size);
+
+    //mergeSort(arr, 0, arr_size - 1); 
+    insertionSort(arr, arr_size);
+
+    cout << "\nSorted array is \n";
+    printArray(arr, arr_size);
+    return 0;
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
