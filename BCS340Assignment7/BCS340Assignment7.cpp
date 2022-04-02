@@ -1,24 +1,55 @@
 #include <iostream>
+#include <string>
 using namespace std;
 
-void BubbleSort(int arr[], int size);
+void bubbleSort(int arr[], int size);
 void printArray(int A[], int size);
+void menu();
 
 int main()
 {
-    int arr[] = { 2, 5, 6, 2, 1, 5, 6, 7, 1, 2 };
-	int size = (sizeof(arr) / sizeof(arr[0]));
+	
+	int userChoice;
+	string confirmChoice;
+	//Display Menu
+	do {
+		menu();
+		cout << "Choose a number 1-7 from the Menu: ";
+		cin >> userChoice;
+		//Display Menu Option Buttons
+		switch (userChoice)
+		{
+		case 1: cout << "Selection Sort\n"; break;
+		case 2: cout << "Insertion Sort\n"; break;
+		case 3: cout << "Bubble Sort\n"; break;
+		case 4: cout << "Merge Sort\n"; break;
+		case 5: cout << "Quick Sort\n"; break;
+		case 6: cout << "Heap Sort\n"; break;
+		case 7: cout << "Re-Initialize Array\n"; break;
+		default: cout << "Wrong choice\n"; break;
+		}
 
-	cout << "Print Array: \n";
-	printArray(arr, size);
-	cout << "\n";
+		cout << "Press x or X to reset the menu: ";
+		cin >> confirmChoice;
+	} while (confirmChoice == "x" || confirmChoice == "X" );
+	return 0;
+}
 
-	BubbleSort(arr, size);
-	cout << "\nArray after BubbleSort\n" << endl;
 
-	cout << "Print Array: \n";
-	printArray(arr, size);
-	cout << "\n";
+void menu() {
+    cout << "======================================================== \n";
+    cout << "\t\t\tMENU\n";
+
+    cout << "======================================================== \n";
+    cout << "1. Selection Sort\n";
+    cout << "2. Insertion Sort\n";
+    cout << "3. Bubble Sort\n";
+    cout << "4. Merge Sort\n";
+    cout << "5. Quick Sort\n";
+    cout << "6. Heap Sort\n";
+    cout << "7. Re-Initialize Array to Random\n";
+	cout << "======================================================== \n"
+		"\t\t\tEND MENU\n\n";
 }
 
 void printArray(int A[], int size)
@@ -30,7 +61,7 @@ void printArray(int A[], int size)
 }
 
 
-void BubbleSort(int arr[], int size) {
+void bubbleSort(int arr[], int size) {
 	int outer, inner, temp;
 
 	//Outer loop
@@ -48,4 +79,5 @@ void BubbleSort(int arr[], int size) {
 		}
 	}
 }
+
 
