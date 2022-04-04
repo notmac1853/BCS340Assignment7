@@ -12,6 +12,11 @@ void printArray(int A[], int size);
 void menu();
 void heapsort(int arr[], int numSize);
 void maxHeapPercolateDown(int index, int heapArr[], int arrSize);
+void merge(int arr[], int leftIndex, int mid, int rightIndex);
+void mergeSort(int arr[], int leftIndex, int rightIndex);
+void insertionSort(int arr[], int size);
+
+
 
 
 int main()
