@@ -115,14 +115,19 @@ void bubbleSort(int arr[], int size) {
 * Two functions to complete the sort. 
 * 1. heapSort(int arr, int numSize)
 * 2. maxHeapPercolateDown(int index, heapArr, arrSize)
+* 
+* I used the algorithm's swap() function for the sections of the MaxPercolate down to swap the 
+* current Index node with the Max number at the root of the problem.
+( 
 */
 
 void heapsort(int arr[], int numSize) {
-	//Heapify numbers Array
+	// Heapifies the array using the MaxHeapPercolateDown function.
 	for (int i = numSize / 2 - 1; i >= 0; i--) {
 		maxHeapPercolateDown(i, arr, numSize);
 	}
-
+	//Removes the maximum value, stores that value at the end index
+	// Then, decrements that value at thje end index until the end index == 0 (i > 0).
 	for (int i = numSize - 1; i > 0; i--) {
 		std::swap(arr[0], arr[i]);
 		maxHeapPercolateDown(0, arr, i);
@@ -130,13 +135,16 @@ void heapsort(int arr[], int numSize) {
 
 }
 void maxHeapPercolateDown(int index, int heapArr[], int arrSize) {
+	// To find the child of the currnet index, multiply the index by 2 then add 1.
 	int childIndex = 2 * index + 1;
 	int value = heapArr[index];
+	
 
 	while (childIndex < arrSize) {
-		//Find the max among the index and all the current nodes children
+		//Find the max among the index and all the current nodes children.
 		int maxValue = value;
 		int maxIndex = -1;
+		// Locates the Max by a conditional to check if the current index + child index > maxValue.
 		for (int i = 0; i < 2 && i + childIndex < arrSize; i++) {
 			if (heapArr[i + childIndex] > maxValue) {
 				maxValue = heapArr[i + childIndex];
@@ -149,8 +157,10 @@ void maxHeapPercolateDown(int index, int heapArr[], int arrSize) {
 		}
 
 		else {
+			// swap the current node with the max index. Assign the Max to the current index.
 			std::swap(heapArr[index], heapArr[maxIndex]);
 			index = maxIndex;
+			// relocating the Child index.
 			childIndex = 2 * index + 1;
 		}
 	}
