@@ -38,7 +38,7 @@ int main()
 
 	/* BubbleSort - Kyle G. */
 	//int size = sizeof(arr) / sizeof(arr[0]);
-
+	clock_t bc = clock();
 
 	int userChoice;
 	string confirmChoice;
@@ -56,32 +56,44 @@ int main()
 			cout << "Selection Sort\n";
 			selectionSort(testArr, TEST_SIZE);
 			displaySortedArray(testArr, TEST_SIZE);
-			
+			for (int i = 0; i < 100000000; i++);
+			cout << "Selection Sort Time\n" << float(clock() - bc) / CLOCKS_PER_SEC << "sec\n";
+		
 			break;
 		case 2:
 			cout << "Insertion Sort\n";
 			insertionSort(testArr, TEST_SIZE);
 			displaySortedArray(testArr, TEST_SIZE);
+			for (int i = 0; i < 100000000; i++);
+			cout << "Insertion Sort Time\n" << float(clock() - bc) / CLOCKS_PER_SEC << "sec\n";
 			break;
 		case 3:
 			cout << "Bubble Sort\n";
 			bubbleSort(testArr, TEST_SIZE);
 			displaySortedArray(testArr, TEST_SIZE);
+			for (int i = 0; i < 100000000; i++);
+			cout << "Bubble Sort Time\n" << float(clock() - bc) / CLOCKS_PER_SEC << "sec\n";
 			break;
 		case 4:
 			cout << "Merge Sort\n";
 			mergeSort(testArr, 0,TEST_SIZE - 1);
 			displaySortedArray(testArr, TEST_SIZE);
+			for (int i = 0; i < 100000000; i++);
+			cout << "Merge Sort Time\n" << float(clock() - bc) / CLOCKS_PER_SEC << "sec\n";
 			break;
 		case 5:
 			cout << "Quick Sort\n";
 			quickSort(testArr, 0,TEST_SIZE - 1);
 			displaySortedArray(testArr, TEST_SIZE);
+			for (int i = 0; i < 100000000; i++);
+			cout << "Quick Sort Time\n" << float(clock() - bc) / CLOCKS_PER_SEC << "sec\n";
 			break;
 		case 6:
 			cout << "Heap Sort\n";
 			heapsort(testArr, TEST_SIZE);
 			displaySortedArray(testArr, TEST_SIZE);
+			for (int i = 0; i < 100000000; i++);
+			cout << "Heap Sort Time\n" << float(clock() - bc) / CLOCKS_PER_SEC << "sec\n";
 			break;
 		case 7:
 			cout << "Re-Initialize Array\n";
@@ -418,3 +430,4 @@ void maxHeapPercolateDown(int index, int heapArr[], int arrSize) {
 		}
 	}
 }
+
