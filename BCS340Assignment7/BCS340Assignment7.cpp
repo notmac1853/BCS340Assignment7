@@ -4,16 +4,19 @@ using namespace std;
 void BubbleSort(int arr[], int size);
 void printArray(int A[], int size);
 
-void selectionSort(int a[], int size);
+void selectionSort(int selectionSortArr[], int size);
 
-void insertionSort(int a[], int size);
+void fillRandomNum(int fillRandomArr[], int size);
 
-void fillRandomNum(int a[], int size);
+void displaySortedArray(int a[], int size);
+
+void quickSort(int quickSortArr[], int lowIndex, int highIndex);
+int partition(int a[], int lowIndex, int highIndex);
 
 int main()
 {
-	/*	Create array of 10,000 numbers	*/
-	cout << "Before testArray\n";
+	/*	Create array of 1,000 numbers	*/
+	cout << "Before filling testArray\n";
 
 	const int TEST_SIZE = 1000;
 	int* testArr = new int[TEST_SIZE];
@@ -22,16 +25,13 @@ int main()
 
 	printArray(testArr, TEST_SIZE);
 
-
-
-
-	cout << "After testArray\n";
+	cout << "After filling testArray with random numbers\n\n";
 
 
 
 	/* BubbleSort - Kyle G. */
 
-	int arr[] = { 2, 5, 6, 2, 1, 5, 6, 7, 1, 2 };
+	/*int arr[] = { 2, 5, 6, 2, 1, 5, 6, 7, 1, 2 };
 	int size = (sizeof(arr) / sizeof(arr[0]));
 
 	cout << "Print Array: \n";
@@ -43,7 +43,7 @@ int main()
 
 	cout << "Print Array: \n";
 	printArray(arr, size);
-	cout << "\n";
+	cout << "\n";*/
 
 
 	/*	selectionSort - Vincent C. 	*/
@@ -52,30 +52,80 @@ int main()
 	int selectionsize = (sizeof(selectionarr) / sizeof(selectionarr[0]));
 
 
-	cout << "print selectionarr[]: ";					// Print original array
+	cout << "print selectionarr[]: \n";					// Print original array
 	printArray(selectionarr, selectionsize);
 
 	selectionSort(selectionarr, selectionsize);			// selectionSort by ascending order, passing arr and size into function
 
-	cout << "\nselectionArr[] after selectionsort: ";	// Print sorted array
+	cout << "\nselectionArr[] after selectionsort: \n";	// Print sorted array
 	printArray(selectionarr, selectionsize);
 	cout << "\n\n";
 
-	/*	insertionSort - Vincent C.	*/
 
-	int insertionArr[] = { 340, 220, 150, 490, 580, 900, 830, 760, 640, 0 };	// Initialize array
-	int insertionSize = (sizeof(insertionArr) / sizeof(insertionArr[0]));		// Initialize insertionSize
+	/*   QuickSort - Vincent C.	*/
 
-	cout << "Print insertionArr[]: ";
-	printArray(insertionArr, insertionSize);			// Print original insertionArr[]
+	int quickSortArr[] = { 10, 2, 78, 4, 45, 32, 7, 11 };
+	const int QS_SIZE = 8;
+	
 
-	insertionSort(insertionArr, insertionSize);
-
-	cout << "\ninsertionArr[] after insertionSort: ";
-	printArray(insertionArr, insertionSize);
+	cout << "print quickSortArr[]: \n";
+	for (int i = 0; i < QS_SIZE; ++i) {
+		cout << quickSortArr[i] << " ";
+	}
 	cout << "\n\n";
 
+	// Initial call to quicksort
+	quickSort(quickSortArr, 0, QS_SIZE - 1);
 
+	cout << "sorted quickSortArr[]: \n";
+	for (int i = 0; i < QS_SIZE; ++i) {
+		cout << quickSortArr[i] << " ";
+	}
+	cout << "\n\n";
+}
+
+
+void quickSort(int quickSortArr[], int lowIndex, int highIndex) {
+	if (lowIndex >= highIndex) { return; }	// Base case: If partition size is 1 or 0 elements, then partition is already sorted
+
+	int lowEndIndex = partition(quickSortArr, lowIndex, highIndex);	// Partition data within array. lowEndIndex is the index of the low partition's last element
+
+	quickSort(quickSortArr, lowIndex, lowEndIndex);		// Recursively sort low partition (lowIndex to lowEndIndex) 
+	quickSort(quickSortArr, lowEndIndex + 1, highIndex);	// and high partition (lowEndIndex + 1 to highIndex)
+}
+
+
+int partition(int a[], int lowIndex, int highIndex) {
+	
+	int midpoint = lowIndex + (highIndex - lowIndex) / 2;	// Pick middle element as pivot
+	int pivot = a[midpoint];
+	bool done = false;
+
+	while (!done) {
+
+		while (a[lowIndex] < pivot) {	// Increment lowIndex while numbers[lowIndex] < pivot
+			lowIndex += 1;
+		}
+
+		while (pivot < a[highIndex]) {	// Decrement highIndex while pivot < numbers[highIndex]
+			highIndex -= 1;
+		}
+
+		if (lowIndex >= highIndex) {	// If zero or one elements remain, then all numbers are 
+			done = true;				// partitioned. Return highIndex.
+		}
+		else {
+			/* Swap numbers[lowIndex] and numbers[highIndex]  */
+			int temp = a[lowIndex];
+			a[lowIndex] = a[highIndex];
+			a[highIndex] = temp;
+
+			/* Update lowIndexand highIndex */
+			lowIndex += 1;
+			highIndex -= 1;
+			}
+		}
+	return highIndex;
 }
 
 
@@ -90,50 +140,30 @@ void displaySortedArray(int a[], int size) {
 
 
 /* Fill with random numbers based on size of array passed in */
-void fillRandomNum(int a[], int size) {
+void fillRandomNum(int fillRandomArr[], int size) {
 	cout << "Initialize array elements with 1000 random num\n";
 	for (int i = 0; i < size; i++) {
-		a[i] = rand() % size + 1;
+		fillRandomArr[i] = rand() % size + 1;
 	}
 }
 
 
-void insertionSort(int a[], int size) {
-	int i = 0;
-	int j = 0;
-	int temp = 0;  // Temporary variable for swap
 
-	for (i = 1; i < size; ++i) {
-		j = i;
-		// Insert numbers[i] into sorted part
-		// stopping once numbers[i] in correct position
-		while (j > 0 && a[j] < a[j - 1]) {
-
-			/*	Swap numbers[j] and numbers[j - 1]	*/
-			temp = a[j];
-			a[j] = a[j - 1];
-			a[j - 1] = temp;
-			--j;							// Decrement index of inserted element
-		}
-	}
-}
-
-
-void selectionSort(int a[], int size) {
+void selectionSort(int selectionSortArr[], int size) {
 	int outer, inner, min;
 
 	for (outer = 0; outer < size - 1; outer++) {
 		min = outer;
 
 		for (inner = outer + 1; inner < size; inner++) {
-			if (a[inner] < a[min]) {
+			if (selectionSortArr[inner] < selectionSortArr[min]) {
 				min = inner;
 			}
 		}
 
-		int temp = a[outer];
-		a[outer] = a[min];
-		a[min] = temp;
+		int temp = selectionSortArr[outer];
+		selectionSortArr[outer] = selectionSortArr[min];
+		selectionSortArr[min] = temp;
 	}
 }
 
